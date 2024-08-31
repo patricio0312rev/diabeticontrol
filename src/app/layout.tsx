@@ -44,6 +44,7 @@ export default function RootLayout({
     <html lang="es">
       <head>
         <title>{metadata.title}</title>
+        <link rel="shortcut icon" href="/favicon.ico" />
         <meta name="description" content={metadata.description} />
         <meta name="generator" content={metadata.generator} />
         <link rel="manifest" href={metadata.manifest} />
