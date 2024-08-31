@@ -146,7 +146,7 @@ const config: Config = {
 			},
 		},
 		backgroundImage: {
-			'radial-gradient': 'radial-gradient(circle at center, var(--tw-gradient-from, var(--theme-color-primary-500)), var(--tw-gradient-to, var(--theme-color-primary-800)))',
+			'radial-gradient': 'radial-gradient(circle at center, var(--tw-gradient-from, var(--theme-color-primary-400)), var(--tw-gradient-to, var(--theme-color-primary-800)))',
 		},
 		backgroundSize: {
 			'200': '200% 200%',
