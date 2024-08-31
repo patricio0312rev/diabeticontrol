@@ -3,7 +3,7 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-@import 'tippy.js/dist/tippy.css';
+@import "tippy.js/dist/tippy.css";
 
 @import "../styles/base.css";
 @import "../styles/fonts.css";

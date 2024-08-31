@@ -1,3 +1,3 @@
-export { AnimatedContainer } from './AnimatedContainer';
-export { Logo } from './Logo';
-export { Navbar } from './Navbar';
+export { AnimatedContainer } from "./AnimatedContainer";
+export { Logo } from "./Logo";
+export { Navbar } from "./Navbar";
