@@ -1,6 +1,7 @@
 {
     "name": "Diabeticontrol",
     "short_name": "Diabeticontrol",
+    "description": "Diabeticontrol | App para controlar tu nivel de glucosa en sangre",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
@@ -15,6 +16,6 @@
     ],
     "theme_color": "#ffffff",
     "background_color": "#ffffff",
-    "start_url": "http://diabeticontrol.com",
-    "display": "standalone"
+    "display": "standalone",
+    "start_url": "/"
 }
