@@ -1,8 +1,5 @@
 import type { Viewport } from 'next'
-import { Inter } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -57,7 +54,7 @@ export default function RootLayout({
         <meta name="msapplication-TileColor" content="#b91d47" />
         <meta name="theme-color" content="#ffffff"></meta>
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className="font-sans">{children}</body>
     </html>
   );
 }
