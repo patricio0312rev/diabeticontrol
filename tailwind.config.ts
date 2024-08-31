@@ -121,21 +121,38 @@ const config: Config = {
 			"theme-danger-info-border": "var(--theme-danger-info-border)",
 		},
     extend: {
-			opacity: {
-				10: "0.1",
-				50: "0.50",
-				90: "0.9",
+		opacity: {
+			10: "0.1",
+			20: "0.2",
+			30: "0.3",
+			40: "0.4",
+			50: "0.5",
+			60: "0.6",
+			70: "0.7",
+			80: "0.8",
+			90: "0.9",
+		},
+		fontFamily: {
+			sans: ["Inter", ...defaultTheme.fontFamily.sans],
+		},
+		animation: {
+			'gradient-bg': 'gradient-animation 15s ease infinite',
+		},
+		keyframes: {
+			'gradient-animation': {
+				'0%': { backgroundPosition: '0%, 50%' },
+				'50%': { backgroundPosition: '100%, 50%' },
+				'100%': { backgroundPosition: '0%, 50%' },
 			},
-			fontFamily: {
-				sans: ["Inter", ...defaultTheme.fontFamily.sans],
-			},
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
+		},
+		backgroundImage: {
+			'radial-gradient': 'radial-gradient(circle at center, var(--tw-gradient-from, var(--theme-color-primary-500)), var(--tw-gradient-to, var(--theme-color-primary-800)))',
+		},
+		backgroundSize: {
+			'200': '200% 200%',
+		},
     },
   },
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [require("@tailwindcss/forms")]
 };
 export default config;
