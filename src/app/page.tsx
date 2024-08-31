@@ -20,8 +20,6 @@ export default function LoginPage() {
         </div>
 
         <form className="space-y-4 sm:space-y-6">
-          <TextInput type="email" id="email" placeholder="Ingresa tu correo electronico" label="E-mail" />
-          
           <TextInput type={showPassword ? "text" : "password"} id="password" label="Contraseña" placeholder='Ingresa tu contraseña' trailingIcon={
             <button 
               type="button" 
