@@ -12,9 +12,9 @@ export const viewport: Viewport = {
 };
 
 export const metadata = {
-  title: "Diabeticontrol",
+  title: "Diabeticontrol | Lleva control de tus niveles de azucar en la sangre",
   description:
-    "Diabeticontrol | App para controlar tu nivel de glucosa en sangre",
+    "Diabeticontrol | Lleva control de tus niveles de azucar en la sangre",
   generator: "Next.js",
   manifest: "/manifest.json",
   keywords: [
@@ -62,26 +62,12 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
-        <title>{metadata.title}</title>
-        <link rel="shortcut icon" href="/favicon.ico" />
-        <meta name="description" content={metadata.description} />
-        <meta name="generator" content={metadata.generator} />
-        <link rel="manifest" href={metadata.manifest} />
-        <meta name="keywords" content={metadata.keywords.join(", ")} />
-        {metadata.authors.map(({ name, url }, index) => (
-          <meta
-            key={index}
-            name="author"
-            content={name}
-            {...(url && { href: url })}
-          />
-        ))}
         <meta name="apple-mobile-web-app-title" content="Diabeticontrol" />
         <meta name="application-name" content="Diabeticontrol" />
         <meta name="msapplication-TileColor" content="#b91d47" />
         <meta name="theme-color" content="#ffffff"></meta>
       </head>
-      <body className="font-sans">{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
