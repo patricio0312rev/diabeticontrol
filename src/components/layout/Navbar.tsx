@@ -16,7 +16,7 @@ export const Navbar: React.FC = () => {
           </div>
 
           <div className="flex items-center space-x-4">
-            <Tippy content={"Desconectar"}>
+            <Tippy content="Cerrar sesión">
               <button className="text-white group-hover:text-theme-secondary-600 group-hover:hover:text-theme-primary-600 transition-colors duration-200">
                 <Logout className="h-6 w-6" />
               </button>
