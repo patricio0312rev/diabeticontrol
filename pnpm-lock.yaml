@@ -63,6 +63,9 @@ importers:
       prisma:
         specifier: ^5.19.0
         version: 5.19.0
+      svgo:
+        specifier: ^3.3.2
+        version: 3.3.2
       tailwindcss:
         specifier: ^3.4.1
         version: 3.4.10(ts-node@10.9.2(@types/node@20.16.2)(typescript@5.5.4))
