@@ -8,6 +8,7 @@ const nextConfig = {
 
         return config;
     },
+    pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
 };
 
 export default nextConfig;
