@@ -147,32 +147,32 @@
 	--theme-shadow-opacity-2xl: 0.6;
 	--theme-shadow-opacity-inner: 0.6;
 
-	--theme-color-navy-rgb: 194, 24, 91;
-	--theme-color-navy-50: #fdf2f8;
-	--theme-color-navy-100: #fce7f3;
-	--theme-color-navy-200: #fbcfe7;
-	--theme-color-navy-300: #f9a8d2;
-	--theme-color-navy-400: #f472b3;
-	--theme-color-navy-500: #ec4895;
-	--theme-color-navy-600: #db2773;
-	--theme-color-navy-700: #c2185b;
-	--theme-color-navy-800: #9d174a;
-	--theme-color-navy-900: #831841;
-	--theme-color-navy-950: #500722;
+	--theme-color-red-rgb: 194, 24, 91;
+	--theme-color-red-50: #fdf2f8;
+	--theme-color-red-100: #fce7f3;
+	--theme-color-red-200: #fbcfe7;
+	--theme-color-red-300: #f9a8d2;
+	--theme-color-red-400: #f472b3;
+	--theme-color-red-500: #ec4895;
+	--theme-color-red-600: #db2773;
+	--theme-color-red-700: #c2185b;
+	--theme-color-red-800: #9d174a;
+	--theme-color-red-900: #831841;
+	--theme-color-red-950: #500722;
 }
 
 .accent-red {
-	--theme-color-primary-rgb: var(--theme-color-navy-rgb);
-	--theme-color-primary-50: var(--theme-color-navy-50);
-	--theme-color-primary-100: var(--theme-color-navy-100);
-	--theme-color-primary-200: var(--theme-color-navy-200);
-	--theme-color-primary-300: var(--theme-color-navy-300);
-	--theme-color-primary-400: var(--theme-color-navy-400);
-	--theme-color-primary-500: var(--theme-color-navy-500);
-	--theme-color-primary-600: var(--theme-color-navy-600);
-	--theme-color-primary-700: var(--theme-color-navy-700);
-	--theme-color-primary-800: var(--theme-color-navy-800);
-	--theme-color-primary-900: var(--theme-color-navy-900);
+	--theme-color-primary-rgb: var(--theme-color-red-rgb);
+	--theme-color-primary-50: var(--theme-color-red-50);
+	--theme-color-primary-100: var(--theme-color-red-100);
+	--theme-color-primary-200: var(--theme-color-red-200);
+	--theme-color-primary-300: var(--theme-color-red-300);
+	--theme-color-primary-400: var(--theme-color-red-400);
+	--theme-color-primary-500: var(--theme-color-red-500);
+	--theme-color-primary-600: var(--theme-color-red-600);
+	--theme-color-primary-700: var(--theme-color-red-700);
+	--theme-color-primary-800: var(--theme-color-red-800);
+	--theme-color-primary-900: var(--theme-color-red-900);
 
 	--theme-color-primary-reverse-50: var(--theme-color-success-50);
 	--theme-color-primary-reverse-100: var(--theme-color-success-100);
