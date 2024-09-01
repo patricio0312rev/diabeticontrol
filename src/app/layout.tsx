@@ -1,5 +1,7 @@
 import type { Viewport } from "next";
 import "./globals.css";
+import ReactQueryProvider from "@/providers/ReactQueryProvider";
+import { ToastContainer } from "react-toastify";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -67,7 +69,12 @@ export default function RootLayout({
         <meta name="msapplication-TileColor" content="#b91d47" />
         <meta name="theme-color" content="#ffffff"></meta>
       </head>
-      <body>{children}</body>
+      <ReactQueryProvider>
+        <body>
+          {children}
+          <ToastContainer position="bottom-right" />
+        </body>
+      </ReactQueryProvider>
     </html>
   );
 }
