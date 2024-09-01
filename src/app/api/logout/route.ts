@@ -12,7 +12,7 @@ export async function POST() {
       }
     );
   } catch (error) {
-    console.error("Error during logout:", error);
+    console.error("Error durante el logout:", error);
     return NextResponse.json(
       { success: false, message: "Error interno." },
       { status: 500 }

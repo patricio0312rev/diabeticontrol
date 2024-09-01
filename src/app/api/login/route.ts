@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
       );
     }
   } catch (error) {
-    console.error("Error during login:", error);
+    console.error("Error durante el login:", error, req);
     return NextResponse.json(
       { success: false, message: "Error interno." },
       { status: 500 }
