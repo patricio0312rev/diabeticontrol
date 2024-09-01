@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Logo from "@/app/assets/svgs/logo.svg";
-import { AnimatedContainer } from "@/components/layout";
+import { AnimatedContainer, PWAInstallBanner } from "@/components/layout";
 import { Button, TextLink } from "@/components/buttons";
 import Eye from "@/app/assets/svgs/eye.svg";
 import EyeClose from "@/app/assets/svgs/eye-close.svg";
@@ -141,6 +141,7 @@ export default function LoginPage() {
           />
         </form>
       </Container>
+      <PWAInstallBanner />
     </AnimatedContainer>
   );
 }
