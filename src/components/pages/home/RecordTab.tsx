@@ -99,6 +99,9 @@ export const RecordTab = ({
     ? new Date(data[0].createdAt).toLocaleDateString("es-PE")
     : "N/A";
 
+  const recordType =
+    type === PatientTabs.GLUCOSE ? "glucosa" : "hemoglobina glicosilada";
+
   return (
     <div className="flex flex-col gap-4 sm:grid sm:grid-cols-[40%_auto] sm:gap-6">
       <div className="flex flex-col gap-2">
@@ -108,10 +111,8 @@ export const RecordTab = ({
         <form className="space-y-4" onSubmit={formik.handleSubmit}>
           <TextInput
             className="space-y-1 sm:space-y-2"
-            label="Nivel de glucosa"
-            placeholder={`Ingresa el nivel de ${
-              type === PatientTabs.GLUCOSE ? "glucosa" : "HbA1c"
-            } del paciente`}
+            label={`Nivel de ${recordType}`}
+            placeholder={`Ingresa el nivel de ${recordType} del paciente`}
             id="value"
             value={formik.values.value}
             onChange={formik.handleChange}
