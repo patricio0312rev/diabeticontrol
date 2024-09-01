@@ -1,6 +1,8 @@
-import { GLUCOSE, HOMOGLOBIN_A1C } from "@/utils/constants";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
+
+const GLUCOSE = "glucose";
+const HOMOGLOBIN_A1C = "homoglobin-a1c";
 
 const prisma = new PrismaClient();
 
