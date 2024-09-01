@@ -59,7 +59,7 @@ export default function LoginPage() {
   });
 
   const loginValidationSchema = Yup.object().shape({
-    password: Yup.string().required("La contraseña es requerida"),
+    password: Yup.string().required("La contraseña es obligatoria."),
     keepConnected: Yup.boolean(),
   });
 
