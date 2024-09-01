@@ -134,7 +134,6 @@ export default function HomePage() {
           {activeTab === PatientTabs.GLUCOSE && patient && (
             <RecordTab
               data={patient.records.filter((r) => r.type === GLUCOSE)}
-              todayEntered={false}
               type={PatientTabs.GLUCOSE}
               patientId={patient.id}
             />
@@ -143,7 +142,6 @@ export default function HomePage() {
           {activeTab === PatientTabs.HOMOGLOBIN_A1C && patient && (
             <RecordTab
               data={patient.records.filter((r) => r.type === HOMOGLOBIN_A1C)}
-              todayEntered={false}
               type={PatientTabs.HOMOGLOBIN_A1C}
               patientId={patient.id}
             />
