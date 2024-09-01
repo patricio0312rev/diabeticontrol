@@ -3,6 +3,7 @@ import "./globals.css";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import { ToastContainer } from "react-toastify";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -75,6 +76,7 @@ export default function RootLayout({
           {children}
           <ToastContainer position="bottom-right" />
           <SpeedInsights />
+          <Analytics />
         </body>
       </ReactQueryProvider>
     </html>
