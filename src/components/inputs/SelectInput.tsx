@@ -15,7 +15,7 @@ type SelectInputProps = {
   onChange: (value: string) => void;
 };
 
-export const SelectInput = <T,>({
+export const SelectInput = ({
   id = "tabs",
   className,
   options,
