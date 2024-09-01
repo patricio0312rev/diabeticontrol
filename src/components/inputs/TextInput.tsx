@@ -36,6 +36,7 @@ export const TextInput = ({
           id={id}
           name={id}
           placeholder={placeholder}
+          autoComplete="off"
           className={twMerge(
             "w-full px-3 py-2 text-sm sm:text-base border border-theme-secondary-300 rounded-md focus:outline-none focus:ring-2 focus:ring-theme-primary-500 focus:border-theme-primary-200",
             cn(
