@@ -15,7 +15,7 @@ type DataPoint = {
 
 type TabData = {
   glucose: DataPoint[];
-  triglycerides: DataPoint[];
+  "homoglobin-a1c": DataPoint[];
   patient: DataPoint[];
 };
 
@@ -32,7 +32,7 @@ export default function HomePage() {
   const [inputValue, setInputValue] = useState<string>("");
   const [data, setData] = useState<TabData>({
     glucose: [],
-    triglycerides: [],
+    "homoglobin-a1c": [],
     patient: [],
   });
   const [todayEntered, setTodayEntered] = useState<boolean>(false);
@@ -42,7 +42,7 @@ export default function HomePage() {
   useEffect(() => {
     const today = new Date().toISOString().split("T")[0];
     setTodayEntered(
-      data[activeTab as "glucose" | "triglycerides"].some(
+      data[activeTab as "glucose" | "homoglobin-a1c"].some(
         (point) => point.date.toISOString().split("T")[0] === today
       )
     );
@@ -55,7 +55,7 @@ export default function HomePage() {
 
     const today = new Date();
     const newData = [
-      ...data[activeTab as "glucose" | "triglycerides"],
+      ...data[activeTab as "glucose" | "homoglobin-a1c"],
       { date: today, value },
     ];
     setData((prevData) => ({ ...prevData, [activeTab]: newData }));
@@ -86,9 +86,13 @@ export default function HomePage() {
   };
 
   const options: TabOption[] = [
-    { value: "patient", label: "Info del Paciente" },
+    { value: "patient", label: "Información del Paciente" },
     { value: "glucose", label: "Glucosa", disabled: !patient },
-    { value: "triglycerides", label: "Trigliceridos", disabled: !patient },
+    {
+      value: "homoglobin-a1c",
+      label: "Homoglobina Glicosilada",
+      disabled: !patient,
+    },
   ];
 
   return (
