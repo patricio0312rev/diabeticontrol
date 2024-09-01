@@ -1,3 +1,4 @@
+import { GLUCOSE, HOMOGLOBIN_A1C } from "@/utils/constants";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 
@@ -25,10 +26,10 @@ async function main() {
   });
 
   await prisma.patient.upsert({
-    where: { id: "1" },
+    where: { id: "75603331" },
     update: {},
     create: {
-      id: "1",
+      id: "75603331",
       firstName: "Juan Patricio",
       lastName: "Marroquin Gavelan",
       birthDate: new Date("1999-12-03"),
@@ -40,8 +41,8 @@ async function main() {
     update: {},
     create: {
       id: "1",
-      patientId: "1",
-      type: "glucose",
+      patientId: "75603331",
+      type: GLUCOSE,
       value: "70",
       createdAt: new Date("2024-08-01"),
     },
@@ -52,8 +53,8 @@ async function main() {
     update: {},
     create: {
       id: "2",
-      patientId: "1",
-      type: "glucose",
+      patientId: "75603331",
+      type: GLUCOSE,
       value: "80",
       createdAt: new Date("2024-07-02"),
     },
@@ -64,8 +65,8 @@ async function main() {
     update: {},
     create: {
       id: "3",
-      patientId: "1",
-      type: "glucose",
+      patientId: "75603331",
+      type: GLUCOSE,
       value: "60",
       createdAt: new Date("2024-06-03"),
     },
@@ -76,8 +77,8 @@ async function main() {
     update: {},
     create: {
       id: "4",
-      patientId: "1",
-      type: "glucose",
+      patientId: "75603331",
+      type: GLUCOSE,
       value: "70",
       createdAt: new Date("2024-05-04"),
     },
@@ -88,8 +89,8 @@ async function main() {
     update: {},
     create: {
       id: "5",
-      patientId: "1",
-      type: "homoglobin-a1c",
+      patientId: "75603331",
+      type: HOMOGLOBIN_A1C,
       value: "5.7",
       createdAt: new Date("2024-04-05"),
     },
@@ -100,8 +101,8 @@ async function main() {
     update: {},
     create: {
       id: "6",
-      patientId: "1",
-      type: "homoglobin-a1c",
+      patientId: "75603331",
+      type: HOMOGLOBIN_A1C,
       value: "5.8",
       createdAt: new Date("2024-05-06"),
     },
@@ -112,8 +113,8 @@ async function main() {
     update: {},
     create: {
       id: "7",
-      patientId: "1",
-      type: "homoglobin-a1c",
+      patientId: "75603331",
+      type: HOMOGLOBIN_A1C,
       value: "5.9",
       createdAt: new Date("2024-06-07"),
     },
@@ -124,8 +125,8 @@ async function main() {
     update: {},
     create: {
       id: "8",
-      patientId: "1",
-      type: "homoglobin-a1c",
+      patientId: "75603331",
+      type: HOMOGLOBIN_A1C,
       value: "7.0",
       createdAt: new Date("2024-07-08"),
     },
@@ -136,8 +137,8 @@ async function main() {
     update: {},
     create: {
       id: "9",
-      patientId: "1",
-      type: "homoglobin-a1c",
+      patientId: "75603331",
+      type: HOMOGLOBIN_A1C,
       value: "5.1",
       createdAt: new Date("2024-08-09"),
     },
