@@ -12,8 +12,31 @@ async function AuthMiddleware(request: NextRequest) {
     await jwtVerify(token, secret);
     return NextResponse.next();
   } catch (error) {
-    console.error("Error verifying token:", error);
+    console.error("Error verificando el token:", error);
     return NextResponse.redirect(new URL("/", request.url));
+  }
+}
+
+async function ApiAuthMiddleware(request: NextRequest) {
+  const token = request.cookies.get("token")?.value;
+
+  if (!token) {
+    return NextResponse.json(
+      { success: false, message: "Token es requerido." },
+      { status: 401 }
+    );
+  }
+
+  try {
+    const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+    await jwtVerify(token, secret);
+    return NextResponse.next();
+  } catch (error) {
+    console.error("Error verificando el token:", error);
+    return NextResponse.json(
+      { success: false, message: "Token inválido." },
+      { status: 401 }
+    );
   }
 }
 
@@ -29,9 +52,14 @@ export default async function middleware(request: NextRequest) {
     }
   }
 
+  // Protect API routes
+  if (request.nextUrl.pathname.startsWith("/api/patients")) {
+    return await ApiAuthMiddleware(request);
+  }
+
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/", "/home"],
+  matcher: ["/", "/home", "/api/patients/:path*"],
 };
