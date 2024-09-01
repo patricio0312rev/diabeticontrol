@@ -7,9 +7,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useFormik } from "formik";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useMemo } from "react";
 import { toast } from "react-toastify";
 import * as Yup from "yup";
+import { AxisOptions, Chart } from "react-charts";
 
 interface RecordValues {
   value: string;
@@ -25,13 +26,19 @@ type ErrorResponse = {
   message: string;
 };
 
+type RecordSeries = {
+  label: string;
+  data: {
+    date: Date;
+    value: number;
+  }[];
+};
+
 export const RecordTab = ({
-  todayEntered,
   data,
   type,
   patientId,
 }: {
-  todayEntered: boolean;
   data: Record[];
   type: PatientTabs.GLUCOSE | PatientTabs.HOMOGLOBIN_A1C;
   patientId: Patient["id"];
@@ -95,12 +102,62 @@ export const RecordTab = ({
     },
   });
 
-  const lastUpdated = data[0]?.createdAt
-    ? new Date(data[0].createdAt).toLocaleDateString("es-PE")
-    : "N/A";
+  const lastUpdated =
+    data.length > 0 && data[data.length - 1]?.createdAt
+      ? new Date(data[data.length - 1].createdAt).toLocaleDateString("es-PE")
+      : "N/A";
 
   const recordType =
-    type === PatientTabs.GLUCOSE ? "glucosa" : "hemoglobina glicosilada";
+    type === PatientTabs.GLUCOSE
+      ? "Glucosa registrada"
+      : "Hemoglobina glicosilada registrada";
+
+  const chartData: RecordSeries[] = [
+    {
+      label: recordType,
+      data: data.map((record) => ({
+        date: new Date(record.createdAt),
+        value: parseFloat(record.value),
+      })),
+    },
+    {
+      label: "Nivel mínimo",
+      data: data.map((record) => ({
+        date: new Date(record.createdAt),
+        value: type === PatientTabs.GLUCOSE ? 70 : 4,
+      })),
+    },
+    {
+      label: "Nivel máximo",
+      data: data.map((record) => ({
+        date: new Date(record.createdAt),
+        value: type === PatientTabs.GLUCOSE ? 130 : 6,
+      })),
+    },
+  ];
+
+  const primaryAxis = useMemo(
+    (): AxisOptions<RecordSeries["data"][0]> => ({
+      getValue: (datum) => new Date(datum.date).toLocaleDateString("es-PE"),
+    }),
+    []
+  );
+
+  const secondaryAxes = useMemo(
+    (): AxisOptions<RecordSeries["data"][0]>[] => [
+      {
+        getValue: (datum) => datum.value,
+        min: 0,
+        max: type === PatientTabs.GLUCOSE ? 200 : 12,
+        elementType: "line",
+        formatters: {
+          scale: (value: any) =>
+            type === PatientTabs.GLUCOSE ? `${value} mg` : `${value}%`,
+        },
+      },
+    ],
+    []
+  );
 
   return (
     <div className="flex flex-col gap-4 sm:grid sm:grid-cols-[40%_auto] sm:gap-6">
@@ -127,7 +184,17 @@ export const RecordTab = ({
         </form>
       </div>
 
-      <div className="bg-black w-full h-64" />
+      <div className=" w-full h-64">
+        <Chart
+          options={{
+            data: chartData,
+            primaryAxis,
+            secondaryAxes,
+            defaultColors: ["#f83c85", "#fecce3", "#55021a"],
+          }}
+          title="Gráfico de registros"
+        />
+      </div>
     </div>
   );
 };
