@@ -1,7 +1,7 @@
 import { Button } from "@/components/buttons";
 import { TextInput } from "@/components/inputs";
 import axiosInstance from "@/utils/axios";
-import { PatientTabs } from "@/utils/constants";
+import { DECIMAL_REGEX, PatientTabs } from "@/utils/constants";
 import { Patient, Record } from "@prisma/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AxiosError } from "axios";
@@ -159,6 +159,11 @@ export const RecordTab = ({
     [type]
   );
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    DECIMAL_REGEX.test(e.target.value) &&
+      formik.setFieldValue("value", e.target.value);
+  };
+
   return (
     <div className="flex flex-col gap-4 sm:grid sm:grid-cols-[40%_auto] sm:gap-6">
       <div className="flex flex-col gap-2">
@@ -172,7 +177,7 @@ export const RecordTab = ({
             placeholder={`Ingresa el nivel de ${recordType} del paciente`}
             id="value"
             value={formik.values.value}
-            onChange={formik.handleChange}
+            onChange={handleInputChange}
             onBlur={formik.handleBlur}
           />
 
