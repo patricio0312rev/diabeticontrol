@@ -9,10 +9,10 @@ export const InfoSection = ({
 }) => {
   return (
     <div>
-      <label className="block text-sm font-semibold text-theme-secondary-700 mb-1">
+      <label className="block mb-1 text-sm font-medium text-theme-secondary-700">
         {label}
       </label>
-      <p className="text-lg font-medium text-theme-secondary-900">{value}</p>
+      <p className="text-base font-medium text-theme-secondary-900">{value}</p>
     </div>
   );
 };
