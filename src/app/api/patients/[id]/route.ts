@@ -20,7 +20,7 @@ export async function GET(
       where: { id },
       include: {
         records: {
-          orderBy: { createdAt: "desc" },
+          orderBy: { createdAt: "asc" },
         },
       },
     });
