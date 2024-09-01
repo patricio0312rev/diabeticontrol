@@ -7,19 +7,94 @@ import Eye from "@/app/assets/svgs/eye.svg";
 import EyeClose from "@/app/assets/svgs/eye-close.svg";
 import { Checkbox, TextInput } from "@/components/inputs";
 import { Container } from "@/components/common";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { useMutation } from "@tanstack/react-query";
+import axiosInstance from "@/utils/axios";
+import { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+
+interface LoginValues {
+  password: string;
+  rememberMe: boolean;
+}
+
+interface LoginResponse {
+  success: boolean;
+  token?: string;
+  message?: string;
+}
+
+type ErrorResponse = {
+  message: string;
+};
 
 export default function LoginPage() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+
+  const loginMutation = useMutation<
+    LoginResponse,
+    AxiosError<ErrorResponse>,
+    LoginValues
+  >({
+    mutationFn: async (values: LoginValues) => {
+      const response = await axiosInstance.post<LoginResponse>(
+        "/login",
+        values
+      );
+      return response.data;
+    },
+    onSuccess: (data) => {
+      if (data.success) {
+        router.push("/home");
+      } else {
+        return false;
+      }
+    },
+    onError: (error) => {
+      return error;
+    },
+  });
+
+  const loginValidationSchema = Yup.object().shape({
+    password: Yup.string().required("La contraseña es requerida"),
+    keepConnected: Yup.boolean(),
+  });
+
+  const formik = useFormik<LoginValues>({
+    initialValues: {
+      password: "",
+      rememberMe: false,
+    },
+    validationSchema: loginValidationSchema,
+    onSubmit: (values) => {
+      loginMutation.mutate(values, {
+        onSuccess: (data) => {
+          formik.setSubmitting(false);
+          if (data.success) {
+            router.push("/home");
+            toast.success(data.message);
+          }
+          formik.resetForm();
+        },
+        onError: (error) => {
+          formik.setSubmitting(false);
+          toast.error(error.response?.data?.message || "Algo salió mal");
+        },
+      });
+    },
+  });
 
   return (
     <AnimatedContainer className="items-center justify-center">
-      {/* Apply the gradient background and animation */}
       <Container>
         <div className="flex items-center justify-center mb-6 sm:mb-8">
           <Logo className="h-12 w-12 text-theme-primary-600 transition-all ease-in-out duration-300" />
         </div>
 
-        <form className="space-y-4 sm:space-y-6">
+        <form className="space-y-4 sm:space-y-6" onSubmit={formik.handleSubmit}>
           <TextInput
             type={showPassword ? "text" : "password"}
             id="password"
@@ -38,10 +113,19 @@ export default function LoginPage() {
                 )}
               </button>
             }
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
           />
 
           <div className="flex items-center justify-between flex-wrap gap-2">
-            <Checkbox id="remember-me" label="Mantener sesión" />
+            <Checkbox
+              id="rememberMe"
+              label="Mantener sesión"
+              checked={formik.values.rememberMe}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
 
             <TextLink
               className="text-sm"
@@ -50,7 +134,11 @@ export default function LoginPage() {
             />
           </div>
 
-          <Button type="submit" text="Ingresar" />
+          <Button
+            type="submit"
+            text="Ingresar"
+            disabled={formik.isSubmitting || loginMutation.isPending}
+          />
         </form>
       </Container>
     </AnimatedContainer>
