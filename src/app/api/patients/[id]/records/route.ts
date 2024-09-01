@@ -39,13 +39,35 @@ export async function POST(
       );
     }
 
-    const record = await prisma.record.create({
-      data: {
+    const today = new Date().toISOString().split("T")[0];
+
+    const existingRecord = await prisma.record.findFirst({
+      where: {
         patientId: id,
         type,
-        value,
+        createdAt: {
+          gte: new Date(today),
+          lt: new Date(new Date(today).getTime() + 24 * 60 * 60 * 1000), // Start of tomorrow
+        },
       },
     });
+
+    let record;
+
+    if (existingRecord) {
+      record = await prisma.record.update({
+        where: { id: existingRecord.id },
+        data: { value },
+      });
+    } else {
+      record = await prisma.record.create({
+        data: {
+          patientId: id,
+          type,
+          value,
+        },
+      });
+    }
 
     return NextResponse.json({ success: true, record }, { status: 201 });
   } catch (error) {
