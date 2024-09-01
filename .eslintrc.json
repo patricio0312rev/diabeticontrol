@@ -2,7 +2,8 @@
   "extends": ["next", "next/core-web-vitals"],
   "rules": {
     "semi": ["warn", "always"],
-    "quotes": ["warn", "double"]
+    "quotes": ["warn", "double"],
+    "no-unused-vars": "warn"
   },
   "ignorePatterns": ["node_modules/", ".next/", "public/"]
 }
