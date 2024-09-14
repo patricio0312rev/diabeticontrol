@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/buttons";
-import { Container, TabNavigation } from "@/components/common";
+import { Container, Loader, TabNavigation } from "@/components/common";
 import { TextInput } from "@/components/inputs";
 import { SelectInput, TabOption } from "@/components/inputs/SelectInput";
 import { AnimatedContainer, Navbar } from "@/components/layout";
@@ -39,7 +39,13 @@ export default function HomePage() {
   const [activeTab, setActiveTab] = useState<string>("patient");
   const [patientId, setPatientId] = useState<string>("");
 
-  const { data: patient, isSuccess, error, isError } = usePatient(patientId);
+  const {
+    data: patient,
+    isSuccess,
+    error,
+    isError,
+    isLoading,
+  } = usePatient(patientId);
 
   useEffect(() => {
     if (isSuccess) {
@@ -108,30 +114,37 @@ export default function HomePage() {
             </form>
           </div>
 
-          <div className="mb-6">
-            <div className="sm:hidden">
-              <SelectInput
-                id="tabs"
-                options={options}
-                activeTab={activeTab}
-                onChange={(e) => setActiveTab(e)}
-              />
+          {isLoading ? (
+            <div className="w-full flex items-center justify-center mt-4 gap-2 text-theme-secondary-600">
+              Cargando...
+              <Loader className="border-t-theme-primary-600" />
             </div>
+          ) : (
+            <div className="mb-6">
+              <div className="sm:hidden">
+                <SelectInput
+                  id="tabs"
+                  options={options}
+                  activeTab={activeTab}
+                  onChange={(e) => setActiveTab(e)}
+                />
+              </div>
 
-            <div className="hidden sm:block">
-              <TabNavigation
-                options={options}
-                activeTab={activeTab}
-                setActiveTab={setActiveTab}
-              />
+              <div className="hidden sm:block">
+                <TabNavigation
+                  options={options}
+                  activeTab={activeTab}
+                  setActiveTab={setActiveTab}
+                />
+              </div>
             </div>
-          </div>
+          )}
 
-          {activeTab === PatientTabs.PATIENT && patient && (
+          {activeTab === PatientTabs.PATIENT && patient && !isLoading && (
             <PatientInfoTab patient={patient} />
           )}
 
-          {activeTab === PatientTabs.GLUCOSE && patient && (
+          {activeTab === PatientTabs.GLUCOSE && patient && !isLoading && (
             <RecordTab
               data={patient.records.filter((r) => r.type === GLUCOSE)}
               type={PatientTabs.GLUCOSE}
@@ -139,13 +152,15 @@ export default function HomePage() {
             />
           )}
 
-          {activeTab === PatientTabs.HOMOGLOBIN_A1C && patient && (
-            <RecordTab
-              data={patient.records.filter((r) => r.type === HOMOGLOBIN_A1C)}
-              type={PatientTabs.HOMOGLOBIN_A1C}
-              patientId={patient.id}
-            />
-          )}
+          {activeTab === PatientTabs.HOMOGLOBIN_A1C &&
+            patient &&
+            !isLoading && (
+              <RecordTab
+                data={patient.records.filter((r) => r.type === HOMOGLOBIN_A1C)}
+                type={PatientTabs.HOMOGLOBIN_A1C}
+                patientId={patient.id}
+              />
+            )}
         </Container>
       </div>
     </AnimatedContainer>
