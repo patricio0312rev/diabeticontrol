@@ -121,17 +121,23 @@ export const RecordTab = ({
       })),
     },
     {
-      label: "Nivel mínimo",
+      label:
+        type === PatientTabs.GLUCOSE
+          ? ">130 - Mal Control"
+          : ">7% Debe mejorar control",
       data: data.map((record) => ({
         date: new Date(record.createdAt),
-        value: type === PatientTabs.GLUCOSE ? 70 : 4,
+        value: type === PatientTabs.GLUCOSE ? 130 : 7,
       })),
     },
     {
-      label: "Nivel máximo",
+      label:
+        type === PatientTabs.GLUCOSE
+          ? "<80 - Riesgo Hipoglucemia"
+          : ">8% Mal control",
       data: data.map((record) => ({
         date: new Date(record.createdAt),
-        value: type === PatientTabs.GLUCOSE ? 130 : 6,
+        value: type === PatientTabs.GLUCOSE ? 80 : 8,
       })),
     },
   ];
@@ -152,7 +158,7 @@ export const RecordTab = ({
         elementType: "line",
         formatters: {
           scale: (value: any) =>
-            type === PatientTabs.GLUCOSE ? `${value} mg` : `${value}%`,
+            type === PatientTabs.GLUCOSE ? `${value} mg/dl` : `${value}%`,
         },
       },
     ],
@@ -195,7 +201,7 @@ export const RecordTab = ({
             data: chartData,
             primaryAxis,
             secondaryAxes,
-            defaultColors: ["#f83c85", "#fecce3", "#55021a"],
+            defaultColors: ["#607D8B", "#FFC107", "#D32F2F"],
           }}
           title="Gráfico de registros"
         />
