@@ -30,7 +30,7 @@ const usePatient = (id: string) => {
       const { data } = await axiosInstance.get(`/patients/${id}`);
       return data.patient;
     },
-    enabled: !!id && id.length === 8,
+    enabled: !!id && id.length >= 7,
     retry: 0,
   });
 };
@@ -58,7 +58,8 @@ export default function HomePage() {
   const getPatientValidationSchema = Yup.object().shape({
     patientId: Yup.string()
       .matches(NUMERIC_REGEX, "El DNI debe ser numérico.")
-      .length(8, "El DNI debe tener 8 dígitos.")
+      // lenght should be 7 or 8
+      .min(7, "El DNI debe tener al menos 8 dígitos.")
       .required("El DNI es obligatorio."),
   });
 
@@ -109,7 +110,7 @@ export default function HomePage() {
                 text="Buscar"
                 type="submit"
                 className="w-auto"
-                disabled={formik.values.patientId.length < 8 || !formik.isValid}
+                disabled={formik.values.patientId.length < 7 || !formik.isValid}
               />
             </form>
           </div>
