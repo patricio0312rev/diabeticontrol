@@ -166,6 +166,7 @@ export const RecordTab = ({
           scale: (value: any) =>
             type === PatientTabs.GLUCOSE ? `${value} mg/dl` : `${value}%`,
         },
+        showDatumElements: true,
       },
     ],
     [type]
@@ -213,7 +214,9 @@ export const RecordTab = ({
             title="Gráfico de registros"
           />
         ) : (
-          <span>No hay datos disponibles</span>
+          <span className="w-full h-full flex items-center justify-center text-theme-secondary-600">
+            No hay datos disponibles
+          </span>
         )}
       </div>
     </div>
