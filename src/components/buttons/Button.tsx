@@ -4,7 +4,7 @@ import cn from "classnames";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
-  text: string;
+  text?: React.ReactNode | string;
   variant?: "primary" | "secondary";
 }
 
