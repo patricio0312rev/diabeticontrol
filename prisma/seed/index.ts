@@ -1,4 +1,6 @@
 import { PrismaClient } from "@prisma/client";
+import { existsSync, readFileSync } from "fs";
+import path from "path";
 import bcrypt from "bcrypt";
 
 const GLUCOSE = "glucose";
@@ -145,6 +147,32 @@ async function main() {
       createdAt: new Date("2024-08-09"),
     },
   });
+
+  // Load JSON data
+  const patientDataPath = path.join(__dirname, "../json/patientsSeeder.json");
+
+  if (existsSync(patientDataPath)) {
+    const rawData = readFileSync(patientDataPath, "utf-8");
+    const patients = JSON.parse(rawData);
+
+    for (const patient of patients) {
+      await prisma.patient.upsert({
+        where: { id: patient.id },
+        update: {},
+        create: {
+          id: patient.id,
+          firstName: patient.firstName,
+          lastName: patient.lastName,
+          birthDate: patient.birthDate ? new Date(patient.birthDate) : null,
+          phone: patient.phone,
+          clinicId: patient.clinicId,
+          diabetesType: patient.diabetesType,
+        },
+      });
+    }
+  } else {
+    console.log("The patientsSeeder.json file does not exist.");
+  }
 }
 
 main()
