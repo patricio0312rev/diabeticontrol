@@ -45,6 +45,7 @@ export const RecordTab = ({
 }) => {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const hasData = data && data.length > 0;
 
   const recordMutation = useMutation<
     RecordResponse,
@@ -112,39 +113,43 @@ export const RecordTab = ({
       ? "Glucosa registrada"
       : "Hemoglobina Glucosilada registrada";
 
-  const chartData: RecordSeries[] = [
-    {
-      label: recordType,
-      data: data.map((record) => ({
-        date: new Date(record.createdAt),
-        value: parseFloat(record.value),
-      })),
-    },
-    {
-      label:
-        type === PatientTabs.GLUCOSE
-          ? ">130 - Mal Control"
-          : ">7% Debe mejorar control",
-      data: data.map((record) => ({
-        date: new Date(record.createdAt),
-        value: type === PatientTabs.GLUCOSE ? 130 : 7,
-      })),
-    },
-    {
-      label:
-        type === PatientTabs.GLUCOSE
-          ? "<80 - Riesgo Hipoglucemia"
-          : ">8% Mal control",
-      data: data.map((record) => ({
-        date: new Date(record.createdAt),
-        value: type === PatientTabs.GLUCOSE ? 80 : 8,
-      })),
-    },
-  ];
+  const chartData: RecordSeries[] = hasData
+    ? [
+        {
+          label: recordType,
+          data: data.map((record) => ({
+            date: new Date(record.createdAt),
+            value: parseFloat(record.value),
+          })),
+        },
+        {
+          label:
+            type === PatientTabs.GLUCOSE
+              ? ">130 - Mal Control"
+              : ">7% Debe mejorar control",
+          data: data.map((record) => ({
+            date: new Date(record.createdAt),
+            value: type === PatientTabs.GLUCOSE ? 130 : 7,
+          })),
+        },
+        {
+          label:
+            type === PatientTabs.GLUCOSE
+              ? "<80 - Riesgo Hipoglucemia"
+              : ">8% Mal control",
+          data: data.map((record) => ({
+            date: new Date(record.createdAt),
+            value: type === PatientTabs.GLUCOSE ? 80 : 8,
+          })),
+        },
+      ]
+    : [];
 
   const primaryAxis = useMemo(
     (): AxisOptions<RecordSeries["data"][0]> => ({
       getValue: (datum) => new Date(datum.date).toLocaleDateString("es-PE"),
+      elementType: "line",
+      min: new Date(data[0]?.createdAt).getTime(),
     }),
     []
   );
@@ -153,6 +158,7 @@ export const RecordTab = ({
     (): AxisOptions<RecordSeries["data"][0]>[] => [
       {
         getValue: (datum) => datum.value,
+        scaleType: "linear",
         min: 0,
         max: type === PatientTabs.GLUCOSE ? 200 : 12,
         elementType: "line",
@@ -196,15 +202,19 @@ export const RecordTab = ({
       </div>
 
       <div className=" w-full h-64">
-        <Chart
-          options={{
-            data: chartData,
-            primaryAxis,
-            secondaryAxes,
-            defaultColors: ["#607D8B", "#FFC107", "#D32F2F"],
-          }}
-          title="Gráfico de registros"
-        />
+        {hasData ? (
+          <Chart
+            options={{
+              data: chartData,
+              primaryAxis,
+              secondaryAxes,
+              defaultColors: ["#607D8B", "#FFC107", "#D32F2F"],
+            }}
+            title="Gráfico de registros"
+          />
+        ) : (
+          <span>No hay datos disponibles</span>
+        )}
       </div>
     </div>
   );
