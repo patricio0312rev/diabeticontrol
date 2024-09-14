@@ -6,7 +6,7 @@ import { Button, TextLink } from "@/components/buttons";
 import Eye from "@/app/assets/svgs/eye.svg";
 import EyeClose from "@/app/assets/svgs/eye-close.svg";
 import { Checkbox, TextInput } from "@/components/inputs";
-import { Container } from "@/components/common";
+import { Container, Loader } from "@/components/common";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useMutation } from "@tanstack/react-query";
@@ -136,7 +136,15 @@ export default function LoginPage() {
 
           <Button
             type="submit"
-            text="Ingresar"
+            text={
+              loginMutation.isPending ? (
+                <span className="flex items-center justify-center gap-2">
+                  Cargando... <Loader />
+                </span>
+              ) : (
+                "Ingresar"
+              )
+            }
             disabled={formik.isSubmitting || loginMutation.isPending}
           />
         </form>
