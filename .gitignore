@@ -45,3 +45,4 @@ public/workbox-*.js.map
 # excel files
 scripts/xlsx
 prisma/json
+scripts/prisma
