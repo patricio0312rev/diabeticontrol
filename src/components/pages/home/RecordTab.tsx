@@ -110,7 +110,7 @@ export const RecordTab = ({
   const recordType =
     type === PatientTabs.GLUCOSE
       ? "Glucosa registrada"
-      : "Hemoglobina glicosilada registrada";
+      : "Hemoglobina Glucosilada registrada";
 
   const chartData: RecordSeries[] = [
     {

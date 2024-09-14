@@ -71,7 +71,7 @@ export default function HomePage() {
     { value: PatientTabs.GLUCOSE, label: "Glucosa", disabled: !patient },
     {
       value: PatientTabs.HOMOGLOBIN_A1C,
-      label: "Homoglobina Glicosilada",
+      label: "Homoglobina Glucosilada",
       disabled: !patient,
     },
   ];
