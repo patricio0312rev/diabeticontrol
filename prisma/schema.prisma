@@ -35,6 +35,7 @@ model Patient {
   updatedAt DateTime  @updatedAt
   phone     String?
   clinicId  String?
+  diabetesType  String?
 
   records Record[]
 
