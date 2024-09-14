@@ -9,7 +9,8 @@
     "lint": "next lint",
     "minify:svg": "svgo -f src/app/assets/svgs",
     "prettier": "prettier --write .",
-    "format": "eslint . --fix"
+    "format": "eslint . --fix",
+    "generate:seeder": "ts-node ./scripts/generateSeederFromXlsx.ts"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed/index.ts"
@@ -39,6 +40,7 @@
     "react-toastify": "^10.0.5",
     "tailwind-merge": "^2.5.2",
     "tippy.js": "^6.3.7",
+    "xlsx": "^0.18.5",
     "yup": "^1.4.0"
   },
   "devDependencies": {
